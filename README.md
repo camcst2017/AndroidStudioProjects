@@ -6,8 +6,11 @@ This tutorial will be going over how to create and use the Bottom Navigation Act
 
 Before we get started I just wanted to highlight some key points and guidelines when using the Bottom Navigation. First off the Bottom Navigation Activity should only be used when you have 3-5 key top level views, if you have more than that it is recommended to use other methods such as the Navigation Drawer. One of the key benefits of the Bottom Navigation is the fact that it is always on screen regardless of which of your "screens" that the user visits. The reason I say "screens" brings us to the second key point in that the Bottom Navigation Activity is largely used alongside fragments. This allows us the easily change the content within our main activity by just displaying another fragment.
 
-https://developer.android.com/guide/components/fragments
-https://material.io/design/components/bottom-navigation.html#theming
+
+
+[More info on Fragments](https://developer.android.com/guide/components/fragments)
+
+[Design Principles for Bottom Navigation](https://material.io/design/components/bottom-navigation.html#theming)
 
 ## Getting Started
 
