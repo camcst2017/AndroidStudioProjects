@@ -4,12 +4,7 @@ This tutorial will be going over how to create and use the Bottom Navigation Act
 
 ### Key points and Benefits
 
-Before we get started I just wanted to highlight some key points and guidelines when using the Bottom Navigation.
-First off the Bottom Navigation Activity should only be used when you have 3-5 key top level views, if you have more
-than that it is recommended to use other methods such as the Navigation Drawer. One of the key benefits of the Bottom 
-Navigation is the fact that it is always on screen regardless of which of your "screens" that the user visits. The reason 
-I say "screens" brings us to the second key point in that the Bottom Navigation Activity is largely used alongside fragments.
-This allows us the easily change the content within our main activity by just displaying another fragment.
+Before we get started I just wanted to highlight some key points and guidelines when using the Bottom Navigation. First off the Bottom Navigation Activity should only be used when you have 3-5 key top level views, if you have more than that it is recommended to use other methods such as the Navigation Drawer. One of the key benefits of the Bottom Navigation is the fact that it is always on screen regardless of which of your "screens" that the user visits. The reason I say "screens" brings us to the second key point in that the Bottom Navigation Activity is largely used alongside fragments. This allows us the easily change the content within our main activity by just displaying another fragment.
 
 https://developer.android.com/guide/components/fragments
 https://material.io/design/components/bottom-navigation.html#theming
@@ -47,9 +42,7 @@ dependencies {
         app:itemIconTint="@color/bottom_nav_icon_color_selector"
         app:itemTextColor="@color/bottom_nav_icon_color_selector"/>
 ```
-The code that Android Studio provides may not contain the last two lines but in short they are used to change
-the colour of the text and icons inside the BottomNavigationView. I will go further in depth on those two lines 
-later in this tutorial.
+The code that Android Studio provides may not contain the last two lines but in short they are used to change the colour of the text and icons inside the BottomNavigationView. I will go further in depth on those two lines later in this tutorial.
 
 #### Added /res/menu and navigation.xml
 This is where you define the items that will go inside your BottomNavigationView
@@ -75,8 +68,7 @@ This is where you define the items that will go inside your BottomNavigationView
 </menu>
 ```
 #### Java Code Provided
-Inside your MainActivity.java you will find two snippets of code added, one to initialize the BottomActivityView and
-a second to listen and react to items selected through the Bottom Navigation.
+Inside your MainActivity.java you will find two snippets of code added, one to initialize the BottomActivityView and a second to listen and react to items selected through the Bottom Navigation.
 ```
 // UI initialization
  BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -106,10 +98,9 @@ private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemS
 ```
 We will be coming back to the listener to alter it once we have added a fragment to our project.
 
-5. Now we will begin customizing our project to better fulfill our needs
-6. First thing is creating a new fragment, this can be done by going File>New>Fragment which will also create your fragment xml
-7. For simplicity I got rid of as much code as possible and created one fragment where the only things that would be changing are 
-a TextView and the background colour
+## Customizing our project to better fulfill our needs
+1. Create a new fragment, this can be done by going File>New>Fragment which will also create your fragment xml
+2. For simplicity I got rid of as much code as possible and created one fragment where the only things that would be changing are  a TextView and the background colour
 
 ```
 public class BottomNavigationFragment extends Fragment {
@@ -157,8 +148,7 @@ public class BottomNavigationFragment extends Fragment {
 </FrameLayout>
 ```
 
-8. Now inside your activity_main.xml you will need to create a space for your fragment to be loaded. You can replace the default
-TextView with the following
+3. Now inside your activity_main.xml you will need to create a space for your fragment to be loaded. You can replace the default TextView with the following
 
 ```
     <FrameLayout
@@ -168,7 +158,7 @@ TextView with the following
         android:layout_marginBottom="?attr/actionBarSize"/>
 ```
 
-9. Inside your MainActivity.java you will now need to handle a few things
+4. Inside your MainActivity.java you will now need to handle a few things
     -Creating an ArrayList to hold the fragments for your BottomNavigationView
     -Creating a method that will initialize each fragment and have it have it pass through the correct TextView text and background color
     -Populate our list with the three fragments that match our BottomNavigationView
@@ -203,7 +193,7 @@ private ArrayList<BottomNavigationFragment> fragmentList = new ArrayList<>();
     }
 ```
 
-10. Next we will need to create a method that will inflate the desired fragment based on the BottomNavigationView
+5. Next we will need to create a method that will inflate the desired fragment based on the BottomNavigationView
 
 ```
     private void switchFragment(int pos) {
@@ -215,15 +205,14 @@ private ArrayList<BottomNavigationFragment> fragmentList = new ArrayList<>();
     }
 ```
 
-11. Next we will want to update our onCreate to populate our list and also to initialize a fragment by default. This can be done
-by adding the following two lines of code
+6. Next we will want to update our onCreate to populate our list and also to initialize a fragment by default. This can be done by adding the following two lines of code
 
 ```
 populateFragmentList();
 switchFragment(0);
 ```
 
-12. We now need to update our item selected listener to switch between the fragments in our ArrayList. This is done by replacing
+7. We now need to update our item selected listener to switch between the fragments in our ArrayList. This is done by replacing
 the default code in the switch statement to our switchFragment method
 
  ```
@@ -249,7 +238,7 @@ the default code in the switch statement to our switchFragment method
     };
  ```
     
-13. To revisit step 4 on how to change the colour of the BottomNavigationView icon and text
+8. To revisit Getting Started step 4 on how to change the colour of the BottomNavigationView icon and text
     1. Create a new Drawable Resource File inside /res/drawable/
     2. Name it something along the lines of selector_bottombar_color.xml or bottom_nav_color_selector.xml
     3. Inside the new xml you will need to define a `state_checked="true"` and a default state
@@ -264,12 +253,12 @@ the default code in the switch statement to our switchFragment method
 </selector>
 ```
 
-14. Inside your activity_main.xml you will need to add the following two lines to your BottomNavigationView if you have not already done so
+9. Inside your activity_main.xml you will need to add the following two lines to your BottomNavigationView if you have not already done so
 ```
 app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
 app:itemTextColor="@drawable/bottom_nav_icon_color_selector"/>
 ```
 
-15. If you would like your text to be a different color or to not show you can create another selector xml and update the itemTextColor field
+10. If you would like your text to be a different color or to not show you can create another selector xml and update the itemTextColor field
     
     
