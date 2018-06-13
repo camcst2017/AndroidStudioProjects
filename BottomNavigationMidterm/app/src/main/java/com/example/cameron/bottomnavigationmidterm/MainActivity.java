@@ -7,34 +7,29 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG_HOME_FRAG = "TAG_HOME_FRAG";
-    private static final String TAG_DASHBOARD_FRAG= "TAG_DASHBOARD_FRAG";
-    private static final String TAG_NOTIFICATIONS_FRAG = "TAG_NOTIFICATIONS_FRAG";
-
     FrameLayout frameLayout;
 
-    private List<BottomNavigationFragment> fragments = new ArrayList<>(3);
+    private ArrayList<BottomNavigationFragment> fragmentList = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    switchFragment(0, TAG_HOME_FRAG);
+                    switchFragment(0);
                     return true;
                 case R.id.navigation_dashboard:
-                    switchFragment(1, TAG_DASHBOARD_FRAG);
+                    switchFragment(1);
                     return true;
                 case R.id.navigation_notifications:
-                    switchFragment(2, TAG_NOTIFICATIONS_FRAG);
+                    switchFragment(2);
                     return true;
             }
             return false;
@@ -51,21 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
         frameLayout = findViewById(R.id.frame);
 
-        buildFragmentsList();
-        switchFragment(0, TAG_HOME_FRAG);
+        populateFragmentList();
+        switchFragment(0);
     }
 
-    private void buildFragmentsList() {
-        BottomNavigationFragment homeFragment = buildFragment("Home", Color.RED);
-        BottomNavigationFragment dashboardFragment = buildFragment("Dashboard", Color.GREEN);
-        BottomNavigationFragment notificationsFragment = buildFragment("Notifications", Color.BLUE);
+    private void populateFragmentList() {
 
-        fragments.add(homeFragment);
-        fragments.add(dashboardFragment);
-        fragments.add(notificationsFragment);
+        BottomNavigationFragment homeFragment = createFragment("Home", Color.RED);
+        BottomNavigationFragment dashboardFragment = createFragment("Dashboard", Color.GREEN);
+        BottomNavigationFragment notificationsFragment = createFragment("Notifications", Color.BLUE);
+
+        fragmentList.add(homeFragment);
+        fragmentList.add(dashboardFragment);
+        fragmentList.add(notificationsFragment);
     }
 
-    private BottomNavigationFragment buildFragment(String title, int color) {
+    private BottomNavigationFragment createFragment(String title, int color) {
+
         BottomNavigationFragment fragment = new BottomNavigationFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BottomNavigationFragment.ARG_TITLE, title);
@@ -74,10 +71,11 @@ public class MainActivity extends AppCompatActivity {
         return fragment;
     }
 
-    private void switchFragment(int pos, String tag) {
+    private void switchFragment(int pos) {
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame, fragments.get(pos), tag)
+                .replace(R.id.frame, fragmentList.get(pos))
                 .commit();
     }
 }
