@@ -29,15 +29,12 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     switchFragment(0, TAG_HOME_FRAG);
-                    frameLayout.setBackgroundColor(Color.RED);
                     return true;
                 case R.id.navigation_dashboard:
                     switchFragment(1, TAG_DASHBOARD_FRAG);
-                    frameLayout.setBackgroundColor(Color.GREEN);
                     return true;
                 case R.id.navigation_notifications:
                     switchFragment(2, TAG_NOTIFICATIONS_FRAG);
-                    frameLayout.setBackgroundColor(Color.BLUE);
                     return true;
             }
             return false;
@@ -59,19 +56,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buildFragmentsList() {
-        BottomNavigationFragment homeFragment = buildFragment("Home");
-        BottomNavigationFragment dashboardFragment = buildFragment("Dashboard");
-        BottomNavigationFragment notificationsFragment = buildFragment("Notifications");
+        BottomNavigationFragment homeFragment = buildFragment("Home", Color.RED);
+        BottomNavigationFragment dashboardFragment = buildFragment("Dashboard", Color.GREEN);
+        BottomNavigationFragment notificationsFragment = buildFragment("Notifications", Color.BLUE);
 
         fragments.add(homeFragment);
         fragments.add(dashboardFragment);
         fragments.add(notificationsFragment);
     }
 
-    private BottomNavigationFragment buildFragment(String title) {
+    private BottomNavigationFragment buildFragment(String title, int color) {
         BottomNavigationFragment fragment = new BottomNavigationFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BottomNavigationFragment.ARG_TITLE, title);
+        bundle.putInt(BottomNavigationFragment.ARG_COLOR, color);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -82,5 +80,4 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.frame, fragments.get(pos), tag)
                 .commit();
     }
-
 }
